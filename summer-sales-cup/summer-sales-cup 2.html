@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جام فروش تابستان | Summer Sales Cup</title>
+
+  <!-- Ant Design Reset -->
+  <link rel="stylesheet" href="https://unpkg.com/antd@5/dist/reset.css" />
+
+  <!-- IRANYekan Local Fonts -->
+  <style>
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanLight.ttf') format('truetype');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanRegular.ttf') format('truetype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanMedium.ttf') format('truetype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanBold.ttf') format('truetype');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanExtraBold.ttf') format('truetype');
+      font-weight: 800; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanBlack.ttf') format('truetype');
+      font-weight: 900; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANYekan';
+      src: url('fonts/IRANYekanExtraBlack.ttf') format('truetype');
+      font-weight: 950; font-style: normal; font-display: swap;
+    }
+  </style>
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────── */
+    :root {
+      --primary:        #C93667;
+      --primary-dark:   #A12550;
+      --primary-light:  #E85585;
+      --primary-glow:   rgba(201,54,103,.25);
+      --orange:         #FF6B35;
+      --orange-light:   #FF8F5E;
+      --yellow:         #FFB340;
+      --cream:          #FFF8F2;
+      --peach:          #FFEEE4;
+      --peach2:         #FFE4D4;
+      --dark:           #1A0812;
+      --dark2:          #2A1020;
+      --text:           #2C1520;
+      --text-mid:       #6B3A50;
+      --text-muted:     #A07080;
+      --white:          #FFFFFF;
+      --card-shadow:    0 8px 32px rgba(201,54,103,.10);
+      --radius:         16px;
+      --radius-sm:      10px;
+      --transition:     .35s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── Global ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IRANYekan', Tahoma, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      direction: rtl;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ─── Page Loader ───────────────────────────────────── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity .6s, visibility .6s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-trophy {
+      width: 80px; height: 80px;
+      animation: loaderPulse 1s ease-in-out infinite alternate;
+    }
+    @keyframes loaderPulse {
+      from { transform: scale(.85); filter: drop-shadow(0 0 10px var(--primary)); }
+      to   { transform: scale(1.05); filter: drop-shadow(0 0 30px var(--orange)); }
+    }
+
+    /* ─── Navbar ────────────────────────────────────────── */
+    .navbar {
+      position: fixed; top: 0; right: 0; left: 0; z-index: 1000;
+      background: rgba(26,8,18,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201,54,103,.2);
+      padding: 0 40px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: var(--transition);
+    }
+    .navbar.scrolled {
+      background: rgba(26,8,18,.98);
+      box-shadow: 0 4px 24px rgba(0,0,0,.4);
+    }
+    .nav-logo {
+      font-size: 18px; font-weight: 800;
+      background: linear-gradient(135deg, var(--yellow), var(--orange), var(--primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -.5px;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex; gap: 8px; align-items: center;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,.75);
+      font-size: 14px; font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--yellow); background: rgba(255,179,64,.08); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-login {
+      color: rgba(255,255,255,.75); font-size: 14px; font-weight: 600;
+      padding: 6px 16px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.2);
+      transition: var(--transition); cursor: pointer; background: transparent;
+    }
+    .btn-login:hover { border-color: var(--primary); color: var(--white); }
+    .btn-register {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      color: var(--white); font-size: 14px; font-weight: 700;
+      padding: 8px 20px; border-radius: 10px;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 16px var(--primary-glow);
+      transition: var(--transition);
+      font-family: 'IRANYekan', Tahoma, sans-serif;
+    }
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--primary-glow);
+    }
+
+    /* ─── Scroll-reveal ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left  { opacity: 0; transform: translateX(40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-right { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: none; }
+
+    /* ─── HERO ──────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 60px 80px;
+      background: radial-gradient(ellipse 120% 80% at 70% 30%, #FFE8D4 0%, var(--cream) 55%),
+                  radial-gradient(ellipse 60% 60% at 20% 80%, rgba(201,54,103,.08) 0%, transparent 60%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C93667' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1240px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      position: relative; z-index: 1; width: 100%;
+    }
+    .hero-content { order: 1; }
+    .hero-visual  { order: 2; display: flex; justify-content: center; align-items: center; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, rgba(201,54,103,.12), rgba(255,107,53,.08));
+      border: 1px solid rgba(201,54,103,.25);
+      padding: 6px 16px; border-radius: 30px; margin-bottom: 24px;
+      font-size: 13px; font-weight: 600; color: var(--primary);
+    }
+    .hero-badge span { animation: blink 1.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+    .hero-title {
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 900; line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .hero-desc {
+      font-size: 16px; color: var(--text-mid); line-height: 1.9;
+      margin-bottom: 32px; max-width: 480px;
+    }
+
+    .hero-cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 48px; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      color: var(--white); font-family: 'IRANYekan', Tahoma, sans-serif;
+      font-size: 16px; font-weight: 700;
+      padding: 14px 40px; border-radius: 14px;
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 28px var(--primary-glow);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.2), transparent);
+      opacity: 0; transition: var(--transition);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px var(--primary-glow); }
+    .btn-primary:hover::after { opacity: 1; }
+
+    .btn-outline {
+      background: transparent; color: var(--primary);
+      font-family: 'IRANYekan', Tahoma, sans-serif;
+      font-size: 15px; font-weight: 600;
+      padding: 13px 28px; border-radius: 14px;
+      border: 2px solid var(--primary);
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-outline:hover { background: var(--primary); color: var(--white); }
+
+    .hero-stats {
+      display: flex; gap: 32px;
+    }
+    .hero-stat-item { text-align: center; }
+    .hero-stat-num {
+      font-size: 28px; font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat-lbl { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+    /* Trophy SVG Visual */
+    .trophy-scene {
+      width: 460px; height: 460px;
+      position: relative;
+      animation: floatTrophy 4s ease-in-out infinite;
+    }
+    @keyframes floatTrophy {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-18px); }
+    }
+    .trophy-glow {
+      position: absolute; inset: 5%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,179,64,.22) 0%, transparent 70%);
+      animation: glowPulse 3s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    @keyframes glowPulse {
+      from { transform: scale(.9); opacity: .5; }
+      to   { transform: scale(1.15); opacity: 1; }
+    }
+    .trophy-svg { width: 100%; height: 100%; position: relative; z-index: 2; }
+
+    /* ─── Ticker ────────────────────────────────────────── */
+    .ticker-wrap {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      padding: 0; overflow: hidden; position: relative;
+      height: 52px;
+    }
+    .ticker-slider {
+      position: relative; width: 100%; height: 52px; overflow: hidden;
+    }
+    .ticker-slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      color: var(--white); font-size: 15px; font-weight: 600;
+      transform: translateY(100%);
+      transition: transform .55s cubic-bezier(.4,0,.2,1), opacity .55s ease;
+      opacity: 0;
+    }
+    .ticker-slide.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .ticker-slide.exit {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    .ticker-dot { width: 7px; height: 7px; background: var(--yellow); border-radius: 50%; flex-shrink: 0; }
+
+    /* ─── Section Shared ─────────────────────────────────── */
+    .section { padding: 96px 60px; }
+    .section-inner { max-width: 1240px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(201,54,103,.1), rgba(255,107,53,.08));
+      color: var(--primary); font-size: 13px; font-weight: 700;
+      padding: 5px 18px; border-radius: 20px;
+      border: 1px solid rgba(201,54,103,.2); margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; color: var(--text);
+      margin-bottom: 14px; line-height: 1.35;
+    }
+    .section-title .accent {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .section-sub { font-size: 15px; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+    .divider {
+      width: 60px; height: 4px; margin: 18px auto 0;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      border-radius: 2px;
+    }
+
+    /* ─── Features / Why Section ────────────────────────── */
+    .features-bg { background: var(--white); }
+
+    /* Big stat headline */
+    .stat-hero-row {
+      display: flex; align-items: baseline; justify-content: center;
+      gap: 14px; margin: 8px 0 20px;
+    }
+    .stat-big-num {
+      font-size: clamp(64px, 10vw, 100px); font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .stat-big-label {
+      font-size: clamp(22px, 3.5vw, 36px); font-weight: 800; color: var(--text);
+    }
+    .stat-hero-desc {
+      font-size: 17px; color: var(--text-mid); line-height: 1.9;
+      max-width: 640px; margin: 0 auto 56px;
+    }
+    .stat-hero-desc b { color: var(--primary); }
+
+    /* ── Comparison character cards ── */
+    .char-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 28px; max-width: 1040px; margin: 0 auto;
+    }
+    .char-card {
+      border-radius: 28px; overflow: hidden; position: relative;
+      box-shadow: 0 12px 44px rgba(0,0,0,.10);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .char-card:hover { transform: translateY(-8px); box-shadow: 0 22px 60px rgba(0,0,0,.14); }
+    .char-good {
+      background: linear-gradient(150deg, #FFF4EE 0%, #FFE0CC 100%);
+      border: 1.5px solid rgba(201,54,103,.18);
+    }
+    .char-bad {
+      background: linear-gradient(150deg, #F2F2F4 0%, #E4E4EC 100%);
+      border: 1.5px solid rgba(100,100,120,.14);
+    }
+    .char-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin: 22px 22px 0; padding: 7px 20px;
+      border-radius: 50px; font-size: 14px; font-weight: 700;
+    }
+    .char-good .char-badge { background: #C93667; color: #fff; }
+    .char-bad  .char-badge { background: #777;    color: #fff; }
+    .char-card-inner {
+      display: flex; align-items: flex-end;
+      padding: 0 16px 28px; gap: 12px; direction: ltr;
+    }
+    .char-img-wrap {
+      flex: 0 0 auto; width: 240px; position: relative;
+      background: transparent; margin-bottom: -40px;
+      perspective: 800px;
+    }
+    .char-img-wrap img {
+      width: 100%; height: auto; object-fit: contain; display: block;
+      filter:
+        drop-shadow(0 28px 20px rgba(0,0,0,.22))
+        drop-shadow(0 8px 6px rgba(0,0,0,.14));
+      transform: scale(1.06) translateY(-6px);
+      transform-style: preserve-3d;
+      transition: transform .4s ease, filter .4s ease;
+    }
+    .char-good .char-img-wrap img {
+      transform: scale(1.08) translateY(-8px) rotateY(-4deg);
+    }
+    .char-bad .char-img-wrap img {
+      transform: scale(1.18) translateY(-12px) rotateY(4deg);
+    }
+    .char-card:hover .char-img-wrap img {
+      transform: scale(1.12) translateY(-14px) rotateY(0deg);
+      filter:
+        drop-shadow(0 36px 28px rgba(0,0,0,.28))
+        drop-shadow(0 12px 8px rgba(0,0,0,.16));
+    }
+    .char-img-wrap::after {
+      content: '';
+      display: block;
+      width: 60%; height: 18px;
+      margin: -8px auto 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,.18);
+      filter: blur(10px);
+    }
+    .char-img-placeholder {
+      width: 100%; height: 300px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px; opacity: .3;
+    }
+    .char-good .char-img-placeholder { background: rgba(201,54,103,.08); }
+    .char-bad  .char-img-placeholder { background: rgba(100,100,120,.08); }
+    .char-stats { flex: 1; display: flex; flex-direction: column; gap: 14px; padding-bottom: 4px; direction: rtl; }
+    .char-stat-item { display: flex; flex-direction: column; gap: 1px; }
+    .char-stat-num {
+      font-size: clamp(34px, 4.5vw, 52px); font-weight: 900; line-height: 1; letter-spacing: -1px;
+    }
+    .char-good .char-stat-num { color: #C93667; }
+    .char-bad  .char-stat-num { color: #888; }
+    .char-stat-label { font-size: 13px; font-weight: 600; color: #777; }
+    .char-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; margin: 0; padding: 0; }
+    .char-bullets li {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; font-weight: 600; line-height: 1.4; color: #444;
+    }
+    .bul-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0;
+    }
+    .char-good .bul-icon { background: rgba(201,54,103,.1); }
+    .char-bad  .bul-icon { background: rgba(100,100,120,.1); }
+    @media (max-width: 760px) {
+      .char-cards { grid-template-columns: 1fr; }
+      .char-img-wrap { width: 140px; }
+    }
+
+    /* ─── Stats + Leaderboard ───────────────────────────── */
+    .stats-section {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%);
+      position: relative; overflow: hidden;
+    }
+    .stats-section::before {
+      content: '';
+      position: absolute; top: -50%; right: -20%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,54,103,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .stats-section::after {
+      content: '';
+      position: absolute; bottom: -30%; left: -10%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,53,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch;
+    }
+    .stat-cards { display: flex; flex-direction: column; gap: 20px; }
+    .stat-cards .stat-card { flex: 1; }
+    .stat-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 28px 32px;
+      position: relative; overflow: hidden;
+      transition: var(--transition);
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--orange));
+    }
+    .stat-card:hover { background: rgba(255,255,255,.09); transform: translateX(-4px); }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.55); font-weight: 600; margin-bottom: 8px; }
+    .stat-value {
+      font-size: 48px; font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-unit { font-size: 14px; color: rgba(255,255,255,.4); margin-top: 6px; font-weight: 600; }
+
+    .leaderboard-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .lb-header {
+      padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lb-title { color: var(--white); font-weight: 800; font-size: 16px; }
+    .live-badge {
+      display: flex; align-items: center; gap: 6px;
+      color: #4ade80; font-size: 12px; font-weight: 700;
+    }
+    .live-dot {
+      width: 8px; height: 8px; background: #4ade80; border-radius: 50%;
+      animation: livePulse 1s ease-in-out infinite;
+    }
+    @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.6);} }
+    .lb-feed { overflow: hidden; }
+    .lb-row {
+      padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,.07);
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: background .25s, opacity .4s, transform .4s;
+    }
+    .lb-row:hover { background: rgba(255,255,255,.04); }
+    .lb-row.lb-enter {
+      overflow: hidden;
+      animation: lbSlideIn .7s cubic-bezier(.25,.8,.25,1) forwards;
+    }
+    .lb-row.lb-exit {
+      overflow: hidden;
+      animation: lbSlideOut .7s cubic-bezier(.25,.8,.25,1) forwards;
+    }
+    @keyframes lbSlideIn {
+      0%   { opacity: 0; transform: translateY(-10px); max-height: 0; padding-top: 0; padding-bottom: 0; }
+      100% { opacity: 1; transform: translateY(0);    max-height: 100px; padding-top: 18px; padding-bottom: 18px; }
+    }
+    @keyframes lbSlideOut {
+      0%   { opacity: 1; max-height: 100px; padding-top: 18px; padding-bottom: 18px; }
+      40%  { opacity: 0; }
+      100% { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; border-width: 0; }
+    }
+    .lb-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 5px; }
+    .lb-text { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.75); line-height: 1.7; }
+    .lb-text .lb-store { color: var(--yellow); filter: blur(4px); user-select: none; }
+    .lb-text .lb-service { color: var(--orange-light); }
+    .lb-time { font-size: 11px; color: rgba(255,255,255,.3); margin-right: auto; flex-shrink: 0; padding-top: 2px; }
+
+    /* ─── Reward Tiers ──────────────────────────────────── */
+    .rewards-section {
+      background: linear-gradient(160deg, #fdf4ee 0%, #fce8d8 60%, #f8dece 100%);
+      position: relative; overflow: hidden;
+    }
+    .rewards-section::before {
+      content: '';
+      position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,54,103,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .rewards-section .section-title { color: var(--text); }
+    .rewards-section .section-sub { color: var(--text-muted); }
+    .rewards-section .section-tag {
+      background: rgba(201,54,103,.1); color: var(--primary);
+      border-color: rgba(201,54,103,.2);
+    }
+    .rewards-section .divider { background: linear-gradient(90deg, transparent, var(--primary), transparent); }
+
+    .tiers-track {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 16px; padding: 20px 0 40px; position: relative;
+    }
+    .tier {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,255,255,.7);
+      border: 1.5px solid rgba(201,54,103,.12);
+      border-radius: 24px; padding: 32px 20px 24px;
+      position: relative; cursor: default;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 24px rgba(201,54,103,.07);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .tier:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(201,54,103,.15);
+      border-color: rgba(201,54,103,.25);
+    }
+    .tier-4 {
+      background: linear-gradient(150deg, rgba(201,54,103,.12), rgba(255,107,53,.08));
+      border-color: rgba(201,54,103,.3);
+      box-shadow: 0 8px 32px rgba(201,54,103,.12);
+    }
+    .tier-4:hover { box-shadow: 0 24px 56px rgba(201,54,103,.22); }
+
+    .tier-medal {
+      width: 88px; height: 88px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; margin-bottom: 16px;
+      transition: transform .3s ease;
+    }
+    .tier:hover .tier-medal { transform: scale(1.1) rotate(-5deg); }
+    .tier-1 .tier-medal { background: linear-gradient(135deg, #4a2e10, #8B5E3C); box-shadow: 0 8px 28px rgba(139,94,60,.4); }
+    .tier-2 .tier-medal { background: linear-gradient(135deg, #555, #aaa); box-shadow: 0 8px 28px rgba(160,160,160,.3); }
+    .tier-3 .tier-medal { background: linear-gradient(135deg, #9a7200, #FFD700); box-shadow: 0 8px 28px rgba(255,215,0,.35); }
+    .tier-4 .tier-medal { background: linear-gradient(135deg, var(--primary), var(--orange)); box-shadow: 0 8px 28px rgba(201,54,103,.5); width: 104px; height: 104px; font-size: 48px; }
+
+    .tier-label {
+      font-size: 15px; font-weight: 800; color: var(--text);
+      margin-bottom: 8px;
+    }
+    .tier-4 .tier-label { color: var(--primary); font-size: 17px; }
+
+    .tier-range {
+      font-size: 12px; font-weight: 600; color: var(--text-muted);
+      background: rgba(201,54,103,.08); padding: 4px 14px;
+      border-radius: 20px; margin-bottom: 16px;
+      border: 1px solid rgba(201,54,103,.12);
+    }
+    .tier-reward {
+      font-size: 18px; font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .tier-4 .tier-reward { font-size: 15px; }
+
+    .tier-badge {
+      position: absolute; top: -12px;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      color: #fff; font-size: 11px; font-weight: 800;
+      padding: 4px 14px; border-radius: 20px;
+      box-shadow: 0 4px 14px rgba(201,54,103,.4);
+    }
+
+    /* ─── Services ──────────────────────────────────────── */
+    .steps-section { background: var(--white); }
+    .services-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 28px; max-width: 900px; margin: 0 auto;
+    }
+    .service-card {
+      display: flex; flex-direction: column;
+      border-radius: 24px; overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: transform .3s ease, box-shadow .3s ease;
+      cursor: pointer; position: relative;
+    }
+    .service-card:hover { transform: translateY(-10px); }
+    .service-card-search {
+      background: linear-gradient(150deg, #fff4ee 0%, #ffe8d8 100%);
+      border: 2px solid rgba(201,54,103,.18);
+      box-shadow: 0 8px 32px rgba(201,54,103,.1);
+    }
+    .service-card-search:hover { box-shadow: 0 24px 56px rgba(201,54,103,.2); border-color: var(--primary); }
+    .service-card-amazing {
+      background: linear-gradient(150deg, #f0f4ff 0%, #e4eaff 100%);
+      border: 2px solid rgba(99,102,241,.18);
+      box-shadow: 0 8px 32px rgba(99,102,241,.1);
+    }
+    .service-card-amazing:hover { box-shadow: 0 24px 56px rgba(99,102,241,.22); border-color: #6366f1; }
+
+    .service-card-header {
+      padding: 32px 28px 20px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .service-icon-wrap {
+      width: 72px; height: 72px; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+    }
+    .service-card-search .service-icon-wrap { background: linear-gradient(135deg, var(--primary), var(--orange)); }
+    .service-card-amazing .service-icon-wrap { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+
+    .service-label { font-size: 26px; font-weight: 900; letter-spacing: .5px; margin-bottom: 6px; line-height: 1.2; }
+    .service-card-search .service-label { color: var(--primary); }
+    .service-card-amazing .service-label { color: #6366f1; }
+    .service-name { font-size: 15px; font-weight: 700; color: var(--text-muted); line-height: 1.5; }
+    .service-tag {
+      display: inline-block; padding: 3px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 800;
+    }
+    .service-card-search .service-tag { background: rgba(201,54,103,.1); color: var(--primary); }
+    .service-card-amazing .service-tag { background: rgba(99,102,241,.1); color: #6366f1; }
+
+    .service-desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; padding: 0 28px 20px; flex: 1; }
+
+    .service-bullets {
+      list-style: none; padding: 0 28px 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .service-bullets li {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .service-bullets li::before {
+      content: '✓'; font-size: 11px; font-weight: 900;
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .service-card-search .service-bullets li::before { background: rgba(201,54,103,.1); color: var(--primary); }
+    .service-card-amazing .service-bullets li::before { background: rgba(99,102,241,.1); color: #6366f1; }
+
+    .service-cta {
+      margin: 8px 28px 28px;
+      padding: 14px 24px; border-radius: 14px;
+      font-size: 15px; font-weight: 800; text-align: center;
+      transition: transform .2s, box-shadow .2s;
+      border: none; cursor: pointer; display: block;
+    }
+    .service-card:hover .service-cta { transform: scale(1.03); }
+    .service-card-search .service-cta {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      color: #fff; box-shadow: 0 6px 20px rgba(201,54,103,.3);
+    }
+    .service-card-amazing .service-cta {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff; box-shadow: 0 6px 20px rgba(99,102,241,.3);
+    }
+    @media (max-width: 760px) { .services-grid { grid-template-columns: 1fr; } }
+
+    /* ─── FAQ ───────────────────────────────────────────── */
+    .faq-section {
+      background: radial-gradient(ellipse 120% 80% at 70% 30%, #FFE8D4 0%, var(--cream) 55%),
+                  radial-gradient(ellipse 60% 60% at 20% 80%, rgba(201,54,103,.08) 0%, transparent 60%);
+      position: relative; overflow: hidden;
+    }
+    .faq-section::before { display: none; }
+    .faq-section .section-tag {
+      background: rgba(201,54,103,.1);
+      color: var(--primary);
+      border: 1px solid rgba(201,54,103,.2);
+    }
+    .faq-section .section-title { color: var(--text); }
+    .faq-section .accent { color: var(--primary); }
+    .faq-section .divider { background: linear-gradient(90deg, transparent, var(--primary), transparent); }
+    .faq-list {
+      max-width: 780px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative; z-index: 1;
+    }
+    .faq-item {
+      background: rgba(255,255,255,.7);
+      border: 1.5px solid rgba(201,54,103,.12);
+      border-radius: 18px;
+      padding: 24px 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      transition: background .3s, border-color .3s, box-shadow .3s;
+    }
+    .faq-item:hover {
+      background: rgba(255,255,255,.95);
+      border-color: rgba(201,54,103,.3);
+      box-shadow: 0 8px 32px rgba(201,54,103,.12);
+    }
+    .faq-q {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16px; font-weight: 800; color: var(--text);
+      margin-bottom: 12px;
+    }
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; color: white; font-style: normal;
+    }
+    .faq-a {
+      font-size: 14px; color: var(--text-muted);
+      line-height: 2; padding-right: 38px;
+    }
+    @media (max-width: 768px) {
+      .faq-item { padding: 18px; }
+      .faq-q { font-size: 14px; }
+      .faq-a { padding-right: 0; }
+    }
+
+    /* ─── Dark CTA ──────────────────────────────────────── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--dark) 0%, #2D0E1E 50%, var(--dark2) 100%);
+      padding: 100px 60px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,54,103,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .cta-emoji { font-size: 72px; margin-bottom: 16px; display: block; }
+    .cta-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 900;
+      color: var(--white); margin-bottom: 20px; line-height: 1.3;
+    }
+    .cta-title .accent { color: var(--yellow); }
+    .cta-sub { font-size: 16px; color: rgba(255,255,255,.6); margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-primary {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      color: var(--white); font-family: 'IRANYekan', Tahoma, sans-serif;
+      font-size: 16px; font-weight: 800;
+      padding: 15px 44px; border-radius: 14px;
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 28px var(--primary-glow);
+      transition: var(--transition);
+    }
+    .btn-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px var(--primary-glow); }
+    .btn-cta-outline {
+      background: transparent; color: var(--white);
+      font-family: 'IRANYekan', Tahoma, sans-serif;
+      font-size: 15px; font-weight: 700;
+      padding: 14px 36px; border-radius: 14px;
+      border: 2px solid rgba(255,255,255,.3);
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-cta-outline:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+    /* ─── Footer ────────────────────────────────────────── */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 48px 60px 32px;
+    }
+    .footer-grid {
+      max-width: 1240px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .footer-logo {
+      font-size: 20px; font-weight: 900;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.9; }
+    .footer-col-title { font-size: 14px; font-weight: 800; color: rgba(255,255,255,.75); margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.45); margin-bottom: 10px; transition: color .2s; }
+    .footer-col a:hover { color: var(--orange-light); }
+    .footer-bottom {
+      max-width: 1240px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: rgba(255,255,255,.35);
+    }
+
+    /* ─── Floating particles canvas ─────────────────────── */
+    #particles-canvas {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    }
+
+    /* ─── Scroll to top ──────────────────────────────────── */
+    #scrollTop {
+      position: fixed; bottom: 32px; left: 32px; z-index: 900;
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      border: none; cursor: pointer; color: var(--white); font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px var(--primary-glow);
+      transition: var(--transition);
+      opacity: 0; transform: translateY(10px); pointer-events: none;
+    }
+    #scrollTop.show { opacity: 1; transform: none; pointer-events: all; }
+    #scrollTop:hover { transform: translateY(-3px); }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid   { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { order: 0; }
+      .trophy-scene { width: 260px; height: 260px; }
+      .section { padding: 64px 24px; }
+      .features-grid, .steps-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer { padding: 40px 24px 24px; }
+      .cta-section { padding: 64px 24px; }
+      .steps-grid::before { display: none; }
+      .tiers-track::before { display: none; }
+
+      /* ── Tiers: stack vertically on mobile ── */
+      .tiers-track {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        max-width: 380px;
+        margin: 0 auto;
+      }
+      /* Championship tier last */
+      .tiers-track .tier-4 { order: 99; }
+      .tier { flex-direction: row; gap: 18px; align-items: center; padding: 18px 20px; }
+      .tier-medal { width: 64px !important; height: 64px !important; font-size: 28px !important; flex-shrink: 0; }
+      .tier-4 .tier-medal { width: 72px !important; height: 72px !important; }
+      .tier-info { text-align: right; flex: 1; }
+      .tier-label { margin-bottom: 4px; }
+      .tier-reward { font-size: 22px !important; }
+    }
+
+    /* ─── Utility ────────────────────────────────────────── */
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════ LOADER ══════════ -->
+<div id="loader">
+  <svg class="loader-trophy" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#C93667"/>
+        <stop offset="100%" stop-color="#FF6B35"/>
+      </linearGradient>
+    </defs>
+    <path d="M30 10 H70 V55 C70 70 60 78 50 80 C40 78 30 70 30 55 Z" fill="url(#tg)" opacity=".9"/>
+    <path d="M30 22 C20 22 12 30 12 42 C12 52 18 58 28 60 C25 55 24 49 24 42 V22 H30Z" fill="#FFB340"/>
+    <path d="M70 22 C80 22 88 30 88 42 C88 52 82 58 72 60 C75 55 76 49 76 42 V22 H70Z" fill="#FFB340"/>
+    <rect x="38" y="80" width="24" height="6" rx="3" fill="#FFB340"/>
+    <rect x="30" y="86" width="40" height="6" rx="3" fill="url(#tg)"/>
+    <path d="M42 40 L48 28 L54 40 L66 42 L57 51 L60 63 L48 57 L36 63 L39 51 L30 42 Z" fill="white" opacity=".9"/>
+  </svg>
+</div>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo" style="margin:auto;">🏆 جام فروش تابستان</div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content reveal">
+      <div class="hero-badge">
+        <span>●</span> فرصت ویژه تابستان ۱۴۰۵
+      </div>
+      <h1 class="hero-title">
+        توی بازار داغ تابستون<br>
+        <span class="highlight">فروشُ بترکون!</span>
+      </h1>
+      <p class="hero-desc">
+        با شروع تابستون و تب‌وتاب جام جهانی، موج جدیدی از خریدها راه افتاده؛ فروشنده‌های هوشمند از همین حالا ویترین تبلیغاتی‌شون رو آماده کرده‌ان، کالاهات رو دقیقاً به کسانی نشون بده که همین الان آماده‌ی خریدن.
+        از این بازار پررونق جا نمونی!
+      </p>
+      <div class="hero-cta-row">
+        <a href="https://dgka.me/summerads" target="_blank" rel="noopener" class="btn-primary">🚀 شروع کن</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-num counter" data-target="1482">۰</div>
+          <div class="hero-stat-lbl">فروشنده فعال</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num counter" data-target="3940">۰</div>
+          <div class="hero-stat-lbl">کمپین فعال</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num counter" data-target="856">۰</div>
+          <div class="hero-stat-lbl">محصول تبلیغ‌شده</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal-left">
+      <div class="trophy-scene">
+        <div class="trophy-glow"></div>
+        <img src="images/trophy-3d.png" class="trophy-svg" alt="trophy" style="object-fit:contain;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TICKER ══════════ -->
+<div class="ticker-wrap">
+  <div class="ticker-slider" id="tickerSlider">
+    <div class="ticker-slide active"><span class="ticker-dot"></span> بیش از ۱۴۸۲ فروشنده در حال آماده شدن برای جام فروش تابستان هستند</div>
+    <div class="ticker-slide"><span class="ticker-dot"></span> بالاترین تخفیف تبلیغاتی فصل را از دیجیکالا ادز دریافت کنید</div>
+    <div class="ticker-slide"><span class="ticker-dot"></span> جوایز ارزشمند برای بهترین فروشندگان تابستان — همین الان ثبت‌نام کن!</div>
+  </div>
+</div>
+
+<!-- ══════════ WHY FEATURES ══════════ -->
+<section class="section features-bg" id="features">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">چرا دیجیکالا ادز؟</div>
+      <div class="stat-hero-row">
+        <span class="stat-big-num">۳.۵×</span>
+        <span class="stat-big-label">بازدید بیشتر</span>
+      </div>
+      <p class="stat-hero-desc">
+        فروشندگانی که در دیجیکالا تبلیغ می‌کنند، به طور میانگین <b>۳.۵ برابر</b> بازدید بیشتر<br>
+        نسبت به فروشندگان بدون تبلیغ دریافت می‌کنند.
+      </p>
+    </div>
+
+    <div class="char-cards reveal">
+        <!-- ══ HAPPY CARD ══ -->
+        <div class="char-card char-good">
+          <div class="char-badge">✓&nbsp; با تبلیغ دیجیکالا ادز</div>
+          <div class="char-card-inner">
+            <div class="char-img-wrap">
+              <img src="images/char-happy.png" alt="فروشنده موفق با تبلیغ"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="char-img-placeholder" style="display:none">🤩</div>
+            </div>
+            <div class="char-stats">
+              <div class="char-stat-item">
+                <span class="char-stat-num">۳.۵×</span>
+                <span class="char-stat-label">بازدید بیشتر در هفته</span>
+              </div>
+              <ul class="char-bullets">
+                <li><span class="bul-icon">👁</span>۱۲,۴۸۰ نمایش در هفته</li>
+                <li><span class="bul-icon">📈</span>رشد فروش تا ۳۴۰٪</li>
+                <li><span class="bul-icon">🏆</span>جایگاه اول نتایج جستجو</li>
+                <li><span class="bul-icon">⚡</span>معرفی به میلیون‌ها خریدار</li>
+                <li><span class="bul-icon">💰</span>درآمد پایدار در فصل داغ</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ SAD CARD ══ -->
+        <div class="char-card char-bad">
+          <div class="char-badge">✗&nbsp; بدون تبلیغ</div>
+          <div class="char-card-inner">
+            <div class="char-img-wrap">
+              <img src="images/char-sad.png" alt="فروشنده بدون تبلیغ"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="char-img-placeholder" style="display:none">😞</div>
+            </div>
+            <div class="char-stats">
+              <div class="char-stat-item">
+                <span class="char-stat-num">۳۲۰</span>
+                <span class="char-stat-label">نمایش در هفته</span>
+              </div>
+              <ul class="char-bullets">
+                <li><span class="bul-icon">🫥</span>گم شدن بین ۵۰۰+ رقیب</li>
+                <li><span class="bul-icon">📉</span>فروش راکد بدون رشد</li>
+                <li><span class="bul-icon">⬇</span>کالا در آخر نتایج جستجو</li>
+                <li><span class="bul-icon">😔</span>خریداران سراغ تبلیغ‌دارها می‌رن</li>
+                <li><span class="bul-icon">💸</span>از دست دادن فرصت فصل پیک</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- placeholder for future SVG defs — remove below block once images are added -->
+        <style>.char-cards-compat { display: none; }</style>
+        <div class="char-cards-compat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><defs>
+          <linearGradient id="lgWarm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFF4EE"/><stop offset="100%" stop-color="#FFE4D2"/></linearGradient>
+          <linearGradient id="lgCool" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F0F0F0"/><stop offset="100%" stop-color="#E2E2E8"/></linearGradient>
+          <!-- Phone -->
+          <linearGradient id="lgPhone" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2A2A2A"/><stop offset="100%" stop-color="#0D0D0D"/></linearGradient>
+          <!-- Product icon -->
+          <linearGradient id="lgProd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFB340"/><stop offset="100%" stop-color="#C93667"/></linearGradient>
+          <!-- Featured card BG -->
+          <linearGradient id="lgFeat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFF2EB"/><stop offset="100%" stop-color="#FFE6D8"/></linearGradient>
+          <!-- ── SKIN GRADIENTS ── -->
+          <radialGradient id="rgSkin" cx="42%" cy="38%" r="58%">
+            <stop offset="0%" stop-color="#F5C99A"/><stop offset="55%" stop-color="#E8B080"/><stop offset="100%" stop-color="#C8884E"/>
+          </radialGradient>
+          <radialGradient id="rgSkinDark" cx="42%" cy="38%" r="58%">
+            <stop offset="0%" stop-color="#DEB080"/><stop offset="60%" stop-color="#C89060"/><stop offset="100%" stop-color="#A86838"/>
+          </radialGradient>
+          <radialGradient id="rgEar" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#DDAA78"/><stop offset="100%" stop-color="#C07848"/></radialGradient>
+          <radialGradient id="rgIris" cx="38%" cy="35%" r="60%"><stop offset="0%" stop-color="#7A4E28"/><stop offset="100%" stop-color="#2A1208"/></radialGradient>
+          <radialGradient id="rgNose" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#F0B88A"/><stop offset="100%" stop-color="#CC8858"/></radialGradient>
+          <!-- Hair -->
+          <linearGradient id="lgHair" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#222222"/><stop offset="100%" stop-color="#111111"/></linearGradient>
+          <!-- Shirt white/cream -->
+          <linearGradient id="lgShirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#D8D4CC"/><stop offset="35%" stop-color="#F2EDE8"/><stop offset="65%" stop-color="#EDE8E2"/><stop offset="100%" stop-color="#C8C4BC"/></linearGradient>
+          <!-- Shirt blue (happy) -->
+          <linearGradient id="lgShirtBlue" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1A4A88"/><stop offset="40%" stop-color="#2D68C4"/><stop offset="100%" stop-color="#163A7A"/></linearGradient>
+          <!-- Shirt grey (sad) -->
+          <linearGradient id="lgShirtGrey" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#B0B0B0"/><stop offset="40%" stop-color="#D0D0D0"/><stop offset="100%" stop-color="#A8A8A8"/></linearGradient>
+          <!-- Pants dark -->
+          <linearGradient id="lgPants" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#232330"/><stop offset="45%" stop-color="#333345"/><stop offset="100%" stop-color="#1A1A28"/></linearGradient>
+          <!-- Pants grey -->
+          <linearGradient id="lgPantsGrey" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#606060"/><stop offset="45%" stop-color="#808080"/><stop offset="100%" stop-color="#585858"/></linearGradient>
+          <!-- Belt -->
+          <linearGradient id="lgBelt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A06030"/><stop offset="100%" stop-color="#704018"/></linearGradient>
+          <!-- Shoe orange -->
+          <linearGradient id="lgShoe" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C87030"/><stop offset="100%" stop-color="#8A4C18"/></linearGradient>
+          <!-- Shoe grey -->
+          <linearGradient id="lgShoeGrey" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#888888"/><stop offset="100%" stop-color="#555555"/></linearGradient>
+          <!-- Skin arm -->
+          <linearGradient id="lgArm" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#D4A070"/><stop offset="50%" stop-color="#E8B888"/><stop offset="100%" stop-color="#C49060"/></linearGradient>
+          <!-- Filters -->
+          <filter id="fShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="rgba(0,0,0,0.13)"/></filter>
+          <filter id="fSoft" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.09)"/></filter>
+          <filter id="fGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="fHeadShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="2" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
+          <filter id="fPhoneGlow" x="-20%" y="-8%" width="140%" height="116%"><feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="rgba(201,54,103,0.30)"/></filter>
+        </defs>
+
+        <!-- ════════════════════ LEFT PANEL ════════════════════ -->
+        <rect x="6" y="6" width="442" height="518" rx="26" fill="url(#lgWarm)" filter="url(#fShadow)"/>
+        <!-- Label -->
+        <rect x="22" y="16" width="162" height="30" rx="15" fill="#C93667"/>
+        <text x="103" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="white">✓  با تبلیغ دیجیکالا ادز</text>
+
+        <!-- ══ LAYER 1 — character body BEHIND phone (drawn first) ══ -->
+        <!-- Ground shadow -->
+        <ellipse cx="215" cy="514" rx="72" ry="11" fill="rgba(150,60,80,.18)"/>
+        <!-- Shoes (orange) -->
+        <path d="M184 500 Q172 500 166 495 Q160 488 164 482 Q168 478 184 478 Q192 478 196 482 L196 496 Q192 500 184 500Z" fill="url(#lgShoe)"/>
+        <path d="M166 490 Q172 484 184 483" stroke="#E88840" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M248 500 Q260 500 266 495 Q272 488 268 482 Q264 478 248 478 Q240 478 236 482 L236 496 Q240 500 248 500Z" fill="url(#lgShoe)"/>
+        <path d="M264 490 Q258 484 248 483" stroke="#E88840" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Socks -->
+        <rect x="180" y="470" width="18" height="12" rx="4" fill="#DEDAD4"/>
+        <rect x="244" y="470" width="18" height="12" rx="4" fill="#DEDAD4"/>
+        <!-- Legs -->
+        <path d="M194 390 Q190 430 184 470 L202 470 Q204 430 208 390Z" fill="url(#lgPants)"/>
+        <path d="M240 390 Q244 430 248 470 L264 470 Q260 430 256 390Z" fill="url(#lgPants)"/>
+        <!-- Belt -->
+        <rect x="190" y="382" width="72" height="10" rx="5" fill="url(#lgBelt)"/>
+        <rect x="222" y="382" width="16" height="10" rx="2" fill="#C48030"/>
+        <rect x="224" y="384" width="12" height="6" rx="1" fill="#905020"/>
+        <!-- Shirt body -->
+        <path d="M192 128 Q182 138 184 220 Q186 390 194 398 Q208 400 252 398 Q260 390 260 220 Q260 138 252 128 Q237 118 222 116 Q207 118 192 128Z" fill="url(#lgShirtBlue)"/>
+        <circle cx="222" cy="152" r="3" fill="#1A3A70" opacity=".7"/><circle cx="222" cy="172" r="3" fill="#1A3A70" opacity=".7"/><circle cx="222" cy="192" r="3" fill="#1A3A70" opacity=".7"/>
+        <line x1="222" y1="130" x2="222" y2="396" stroke="#1A3A70" stroke-width="1.2" opacity=".5"/>
+        <!-- Left arm (behind phone) -->
+        <path d="M192 136 Q172 148 164 182 Q158 208 162 232" stroke="#1A4A88" stroke-width="24" fill="none" stroke-linecap="round"/>
+        <path d="M192 136 Q172 148 164 182 Q158 208 162 232" stroke="url(#lgShirtBlue)" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <path d="M162 232 Q156 256 158 278 Q160 290 165 298" stroke="url(#lgArm)" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <ellipse cx="168" cy="302" rx="14" ry="13" fill="url(#rgSkin)"/>
+        <!-- Left hand gripping toward phone edge -->
+        <path d="M162 280 Q158 268 160 258" stroke="url(#rgSkin)" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+        <!-- ══ LAYER 2 — character HEAD (drawn before phone, face visible above phone top at y=92) ══ -->
+        <!-- Left ear -->
+        <ellipse cx="181" cy="58" rx="14" ry="18" fill="url(#rgSkin)"/>
+        <ellipse cx="181" cy="58" rx="8" ry="12" fill="url(#rgEar)"/>
+        <!-- Right ear -->
+        <ellipse cx="269" cy="58" rx="14" ry="18" fill="url(#rgSkin)"/>
+        <ellipse cx="269" cy="58" rx="8" ry="12" fill="url(#rgEar)"/>
+        <!-- Head base (cx=225, cy=60 — sits just above phone top y=92) -->
+        <ellipse cx="225" cy="60" rx="50" ry="54" fill="url(#rgSkin)" filter="url(#fHeadShadow)"/>
+        <ellipse cx="210" cy="42" rx="21" ry="16" fill="rgba(255,255,255,.20)"/>
+        <ellipse cx="225" cy="106" rx="28" ry="9" fill="#C8884E" opacity=".20"/>
+        <!-- Hair -->
+        <path d="M178 52 Q180 12 225 4 Q270 12 272 52 Q265 24 225 18 Q185 24 178 52Z" fill="url(#lgHair)"/>
+        <path d="M202 8 Q208 -8 220 6 Q224 -10 236 5 Q244 -6 254 7 Q262 -2 272 8 Q258 -2 225 -2 Q192 -2 202 8Z" fill="#181818"/>
+        <path d="M184 28 Q182 12 192 20" fill="#111"/>
+        <path d="M202 10 Q222 3 248 7" stroke="rgba(255,255,255,.15)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Eyebrows (happy, raised) -->
+        <path d="M196 40 Q209 32 222 37" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M228 37 Q241 32 254 40" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <!-- Eyes -->
+        <ellipse cx="208" cy="55" rx="14" ry="15" fill="white"/>
+        <ellipse cx="242" cy="55" rx="14" ry="15" fill="white"/>
+        <path d="M195 49 Q208 43 221 49" fill="#D0C0A0" opacity=".22"/>
+        <path d="M229 49 Q242 43 255 49" fill="#D0C0A0" opacity=".22"/>
+        <circle cx="208" cy="56" r="9.5" fill="url(#rgIris)"/>
+        <circle cx="242" cy="56" r="9.5" fill="url(#rgIris)"/>
+        <circle cx="209" cy="57" r="5.5" fill="#0D0500"/>
+        <circle cx="243" cy="57" r="5.5" fill="#0D0500"/>
+        <circle cx="204" cy="51" r="3.2" fill="white" opacity=".95"/>
+        <circle cx="238" cy="51" r="3.2" fill="white" opacity=".95"/>
+        <circle cx="213" cy="61" r="1.6" fill="white" opacity=".55"/>
+        <circle cx="247" cy="61" r="1.6" fill="white" opacity=".55"/>
+        <path d="M195 49 Q208 43 221 49" stroke="#3A2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M229 49 Q242 43 255 49" stroke="#3A2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Nose -->
+        <ellipse cx="225" cy="72" rx="10" ry="8" fill="url(#rgNose)"/>
+        <ellipse cx="222" cy="69" rx="4" ry="3" fill="rgba(255,255,255,.28)"/>
+        <ellipse cx="219" cy="77" rx="2.5" ry="1.8" fill="#C07848" opacity=".45"/>
+        <ellipse cx="231" cy="77" rx="2.5" ry="1.8" fill="#C07848" opacity=".45"/>
+        <!-- Big smile -->
+        <path d="M206 88 Q225 107 244 88" stroke="#8B4A30" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M206 88 Q225 107 244 88 Q237 101 225 103 Q213 101 206 88Z" fill="#CC5555" opacity=".55"/>
+        <path d="M209 90 Q225 105 241 90 Q235 99 225 101 Q215 99 209 90Z" fill="white" opacity=".8"/>
+        <!-- Rosy cheeks -->
+        <ellipse cx="186" cy="82" rx="14" ry="10" fill="#FF8888" opacity=".32"/>
+        <ellipse cx="264" cy="82" rx="14" ry="10" fill="#FF8888" opacity=".32"/>
+        <!-- Neck (between head bottom and phone top — visible at x>232) -->
+        <rect x="215" y="112" width="20" height="18" rx="6" fill="url(#rgSkin)"/>
+        <!-- Shirt collar v-neck tip -->
+        <path d="M210 128 Q222 140 222 134 Q222 140 234 128 L239 118 Q222 130 222 124 Q222 130 205 118Z" fill="white" opacity=".8"/>
+
+        <!-- ══ LAYER 3 — LARGE PHONE (drawn after head; phone top at y=92 covers chin/neck left area) ══ -->
+        <!-- Phone outer frame -->
+        <rect x="14" y="92" width="218" height="430" rx="32" fill="#1C1C1E" filter="url(#fPhoneGlow)"/>
+        <!-- Phone mid bezel -->
+        <rect x="20" y="98" width="206" height="418" rx="27" fill="#2C2C2E"/>
+        <!-- Screen -->
+        <rect x="26" y="106" width="194" height="402" rx="22" fill="white"/>
+        <!-- Dynamic Island pill -->
+        <rect x="98" y="108" width="50" height="16" rx="8" fill="#1C1C1E"/>
+        <circle cx="140" cy="116" r="4" fill="#111"/>
+        <!-- Volume buttons (left) -->
+        <rect x="10" y="150" width="7" height="22" rx="3.5" fill="#1A1A1A"/>
+        <rect x="10" y="180" width="7" height="38" rx="3.5" fill="#1A1A1A"/>
+        <rect x="10" y="226" width="7" height="38" rx="3.5" fill="#1A1A1A"/>
+        <!-- Power button (right) -->
+        <rect x="229" y="180" width="7" height="52" rx="3.5" fill="#1A1A1A"/>
+        <!-- Status bar -->
+        <text x="34" y="126" font-size="8" font-weight="600" fill="#222">9:41</text>
+        <rect x="188" y="118" width="26" height="10" rx="2" fill="none" stroke="#333" stroke-width="1"/>
+        <rect x="189" y="119" width="18" height="8" rx="1.5" fill="#22BB55"/>
+        <!-- Search bar -->
+        <rect x="30" y="132" width="186" height="22" rx="11" fill="#F2F2F7"/>
+        <text x="210" y="147" text-anchor="end" font-size="8.5" fill="#AAA">🔍  جستجو کالا...</text>
+        <!-- Category chips -->
+        <rect x="30" y="160" width="46" height="17" rx="8.5" fill="#C93667"/>
+        <text x="53" y="173" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">همه</text>
+        <rect x="82" y="160" width="52" height="17" rx="8.5" fill="#F2F2F7"/>
+        <text x="108" y="173" text-anchor="middle" font-size="7.5" fill="#555">پوشاک</text>
+        <rect x="140" y="160" width="52" height="17" rx="8.5" fill="#F2F2F7"/>
+        <text x="166" y="173" text-anchor="middle" font-size="7.5" fill="#555">ورزشی</text>
+        <!-- ★ FEATURED ITEM (our product, #1, glowing) -->
+        <rect x="28" y="182" width="190" height="76" rx="12" fill="url(#lgFeat)" stroke="#FF8C42" stroke-width="2" filter="url(#fGlow)"/>
+        <rect x="34" y="188" width="58" height="58" rx="10" fill="url(#lgProd)"/>
+        <text x="63" y="221" text-anchor="middle" font-size="22" fill="white">★</text>
+        <rect x="34" y="236" width="58" height="13" rx="6.5" fill="#C93667"/>
+        <text x="63" y="246" text-anchor="middle" font-size="7" font-weight="700" fill="white">تبلیغ</text>
+        <rect x="100" y="190" width="86" height="8" rx="4" fill="#1A1A1A"/>
+        <rect x="100" y="203" width="66" height="6" rx="3" fill="#888"/>
+        <rect x="100" y="215" width="52" height="7" rx="3.5" fill="#C93667"/>
+        <text x="100" y="238" font-size="9" fill="#FFB340">★★★★★</text>
+        <text x="152" y="238" font-size="7.5" fill="#999">(۲۴۸)</text>
+        <!-- Item 2 -->
+        <line x1="28" y1="262" x2="218" y2="262" stroke="#F0F0F0" stroke-width="1"/>
+        <rect x="28" y="266" width="190" height="52" rx="9" fill="white"/>
+        <rect x="34" y="271" width="40" height="40" rx="8" fill="#EBEBEB"/>
+        <rect x="82" y="273" width="78" height="6" rx="3" fill="#CCC"/>
+        <rect x="82" y="284" width="58" height="5" rx="2.5" fill="#DDD"/>
+        <rect x="82" y="294" width="44" height="5" rx="2.5" fill="#EEE"/>
+        <!-- Item 3 -->
+        <line x1="28" y1="322" x2="218" y2="322" stroke="#F0F0F0" stroke-width="1"/>
+        <rect x="28" y="326" width="190" height="52" rx="9" fill="white"/>
+        <rect x="34" y="331" width="40" height="40" rx="8" fill="#EBEBEB"/>
+        <rect x="82" y="333" width="72" height="6" rx="3" fill="#CCC"/>
+        <rect x="82" y="344" width="54" height="5" rx="2.5" fill="#DDD"/>
+        <rect x="82" y="355" width="38" height="5" rx="2.5" fill="#EEE"/>
+        <!-- Item 4 -->
+        <line x1="28" y1="382" x2="218" y2="382" stroke="#F0F0F0" stroke-width="1"/>
+        <rect x="28" y="386" width="190" height="44" rx="9" fill="white"/>
+        <rect x="34" y="391" width="36" height="36" rx="7" fill="#F0F0F0"/>
+        <rect x="78" y="393" width="68" height="5" rx="2.5" fill="#DDD"/>
+        <rect x="78" y="404" width="48" height="5" rx="2.5" fill="#EEE"/>
+        <!-- View count inside phone -->
+        <rect x="28" y="434" width="190" height="30" rx="15" fill="#FFF7F0" stroke="#FF8C42" stroke-width="1.5"/>
+        <text x="123" y="453" text-anchor="middle" font-size="9.5" font-weight="700" fill="#C93667">👁  ۱۲,۴۸۰ نمایش این هفته</text>
+        <!-- Bottom home indicator -->
+        <rect x="107" y="499" width="42" height="4" rx="2" fill="#CCCCCC"/>
+
+        <!-- ══ LAYER 4 — visible character parts RIGHT of phone (x > 232) ══ -->
+        <!-- Right shirt sleeve visible edge -->
+        <path d="M252 128 Q274 138 284 165 Q292 186 288 210" stroke="#1A4A88" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <path d="M252 128 Q274 138 284 165 Q292 186 288 210" stroke="url(#lgShirtBlue)" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <!-- Right body strip -->
+        <path d="M252 130 Q260 200 258 380" stroke="url(#lgShirtBlue)" stroke-width="14" fill="none" stroke-linecap="round" opacity=".7"/>
+
+        <!-- RIGHT ARM — raised up with THUMB UP (all x > 232) -->
+        <!-- Sleeve on upper arm -->
+        <path d="M256 130 Q290 115 330 100 Q360 88 382 75" stroke="#1A4A88" stroke-width="24" fill="none" stroke-linecap="round"/>
+        <path d="M256 130 Q290 115 330 100 Q360 88 382 75" stroke="url(#lgShirtBlue)" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <!-- Forearm skin from cuff -->
+        <path d="M382 75 Q396 64 406 52 Q414 40 414 28" stroke="url(#lgArm)" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <!-- Shirt cuff -->
+        <path d="M376 70 Q384 76 392 74" stroke="#13356A" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <!-- FIST (closed) -->
+        <ellipse cx="413" cy="22" rx="17" ry="19" fill="url(#rgSkin)"/>
+        <!-- THUMB pointing up -->
+        <path d="M400 26 Q390 14 392 -1 Q394 -13 401 -17 Q409 -20 414 -12 Q417 -3 414 8 L404 26Z" fill="url(#rgSkin)"/>
+        <path d="M392 -1 Q394 -13 401 -17 Q409 -20 414 -12" stroke="#C88858" stroke-width="1.5" fill="none"/>
+        <!-- Knuckles -->
+        <path d="M401 31 Q413 27 424 31" stroke="#C89060" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+        <!-- VIEW BADGE (right of phone) -->
+        <rect x="238" y="340" width="192" height="54" rx="27" fill="#E6FBF0" stroke="#4ade80" stroke-width="2" filter="url(#fSoft)"/>
+        <text x="334" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">↑ ۱۲,۴۸۰ نمایش</text>
+        <text x="334" y="380" text-anchor="middle" font-size="10" fill="#16a34a">این هفته 🚀 با تبلیغ</text>
+
+        <!-- Sparkles -->
+        <text x="272" y="48" font-size="18" fill="#FFD166" opacity=".9">✦</text>
+        <text x="430" y="36" font-size="13" fill="#FF6B35" opacity=".85">✦</text>
+        <text x="268" y="110" font-size="9" fill="#FFB340">★</text>
+        <text x="438" y="80" font-size="8" fill="#FFD166">●</text>
+
+        <!-- ════ VS DIVIDER ════ -->
+        <line x1="463" y1="14" x2="463" y2="516" stroke="#DDD0D8" stroke-width="1.5" stroke-dasharray="7 5"/>
+        <circle cx="463" cy="265" r="36" fill="white" stroke="#E8D0DA" stroke-width="1.5" filter="url(#fSoft)"/>
+        <text x="463" y="258" text-anchor="middle" font-size="11" font-weight="800" fill="#C93667">در</text>
+        <text x="463" y="274" text-anchor="middle" font-size="11" font-weight="800" fill="#C93667">مقابل</text>
+
+        <!-- ════════════════════ RIGHT PANEL ════════════════════ -->
+        <rect x="472" y="6" width="442" height="518" rx="26" fill="url(#lgCool)" filter="url(#fShadow)"/>
+        <!-- Label -->
+        <rect x="488" y="16" width="148" height="30" rx="15" fill="#9E9E9E"/>
+        <text x="562" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="white">✗  بدون تبلیغ</text>
+
+        <!-- Phone (right panel) -->
+        <rect x="488" y="62" width="190" height="310" rx="22" fill="url(#lgPhone)" filter="url(#fSoft)"/>
+        <rect x="558" y="67" width="50" height="8" rx="4" fill="#181818"/>
+        <rect x="496" y="78" width="174" height="286" rx="14" fill="white"/>
+        <rect x="504" y="86" width="158" height="19" rx="9" fill="#F0F0F0"/>
+        <text x="648" y="99" text-anchor="end" font-size="8" fill="#AAA">🔍  جستجو کالا...</text>
+        <!-- Competitor items -->
+        <rect x="502" y="111" width="162" height="48" rx="8" fill="#F0F0F0"/>
+        <rect x="508" y="116" width="32" height="32" rx="6" fill="#D5D5D5"/>
+        <rect x="548" y="118" width="58" height="5" rx="2.5" fill="#BBBBBB"/><rect x="548" y="128" width="40" height="4" rx="2" fill="#CCCCCC"/>
+        <rect x="644" y="114" width="16" height="11" rx="5" fill="#AAAAAA"/><text x="652" y="122.5" text-anchor="middle" font-size="6.5" fill="white">آگهی</text>
+        <rect x="502" y="164" width="162" height="48" rx="8" fill="#F0F0F0"/>
+        <rect x="508" y="169" width="32" height="32" rx="6" fill="#D5D5D5"/>
+        <rect x="548" y="171" width="52" height="5" rx="2.5" fill="#BBBBBB"/><rect x="548" y="181" width="36" height="4" rx="2" fill="#CCCCCC"/>
+        <rect x="644" y="167" width="16" height="11" rx="5" fill="#AAAAAA"/><text x="652" y="175.5" text-anchor="middle" font-size="6.5" fill="white">آگهی</text>
+        <rect x="502" y="217" width="162" height="48" rx="8" fill="#F0F0F0"/>
+        <rect x="508" y="222" width="32" height="32" rx="6" fill="#D5D5D5"/>
+        <rect x="548" y="224" width="48" height="5" rx="2.5" fill="#BBBBBB"/><rect x="548" y="234" width="32" height="4" rx="2" fill="#CCCCCC"/>
+        <rect x="644" y="220" width="16" height="11" rx="5" fill="#AAAAAA"/><text x="652" y="228.5" text-anchor="middle" font-size="6.5" fill="white">آگهی</text>
+        <!-- Our product buried at bottom -->
+        <rect x="502" y="270" width="162" height="52" rx="8" fill="#F6F6F6" stroke="#DCDCDC" stroke-width="1"/>
+        <rect x="508" y="275" width="36" height="36" rx="7" fill="#E0E0E0"/>
+        <text x="526" y="297" text-anchor="middle" font-size="18" fill="#C0C0C0">📦</text>
+        <rect x="552" y="277" width="58" height="5" rx="2.5" fill="#C8C8C8"/><rect x="552" y="287" width="40" height="4" rx="2" fill="#D8D8D8"/><rect x="552" y="297" width="28" height="4" rx="2" fill="#E5E5E5"/>
+        <text x="508" y="326" font-size="7.5" fill="#BBBBBB">👁  ۳۲۰ نمایش</text>
+        <rect x="658" y="111" width="4" height="211" rx="2" fill="#EEEEEE"/>
+        <rect x="658" y="270" width="4" height="52" rx="2" fill="#B0B0B0"/>
+        <!-- View badge low -->
+        <rect x="488" y="382" width="190" height="38" rx="19" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text x="583" y="398" text-anchor="middle" font-size="11" font-weight="700" fill="#DC2626">↓ ۳۲۰ نمایش در هفته</text>
+        <text x="583" y="412" text-anchor="middle" font-size="9" fill="#EF4444">بدون تبلیغ</text>
+
+        <!-- ══ SAD CHARACTER (cx=792, deeply defeated pose) ══ -->
+        <!-- Ground shadow -->
+        <ellipse cx="792" cy="514" rx="62" ry="11" fill="rgba(0,0,0,.12)"/>
+        <!-- Shoes grey -->
+        <path d="M758 500 Q746 500 740 495 Q734 488 738 482 Q742 478 758 478 Q766 478 770 482 L770 496 Q766 500 758 500Z" fill="url(#lgShoeGrey)"/>
+        <path d="M740 490 Q746 484 758 483" stroke="#A8A8A8" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M820 500 Q832 500 838 495 Q844 488 840 482 Q836 478 820 478 Q812 478 808 482 L808 496 Q812 500 820 500Z" fill="url(#lgShoeGrey)"/>
+        <path d="M838 490 Q832 484 820 483" stroke="#A8A8A8" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="755" y="470" width="18" height="12" rx="4" fill="#D0D0D0"/>
+        <rect x="809" y="470" width="18" height="12" rx="4" fill="#D0D0D0"/>
+        <!-- Legs slumped -->
+        <path d="M768 392 Q764 430 758 470 L776 470 Q780 430 784 392Z" fill="url(#lgPantsGrey)"/>
+        <path d="M820 392 Q824 430 820 470 L836 470 Q838 430 836 392Z" fill="url(#lgPantsGrey)"/>
+        <!-- Belt grey -->
+        <rect x="764" y="384" width="68" height="10" rx="5" fill="#888"/>
+        <rect x="790" y="384" width="16" height="10" rx="2" fill="#999"/>
+        <!-- Shirt slumped, forward bent -->
+        <path d="M768 242 Q758 254 760 315 Q762 386 768 394 Q786 396 818 394 Q828 386 828 315 Q828 254 820 242 Q806 232 794 230 Q780 232 768 242Z" fill="url(#lgShirtGrey)"/>
+        <circle cx="794" cy="265" r="3" fill="#AAAAAA"/><circle cx="794" cy="285" r="3" fill="#AAAAAA"/><circle cx="794" cy="305" r="3" fill="#AAAAAA"/>
+        <line x1="794" y1="244" x2="794" y2="390" stroke="#A0A0A0" stroke-width="1.2"/>
+        <path d="M782 244 Q794 258 794 252 Q794 258 806 244 L810 232 Q794 244 794 238 Q794 244 778 232Z" fill="#C8C8C8"/>
+        <!-- Left arm raised — hand on forehead (face-palm / despair) -->
+        <path d="M768 252 Q754 264 750 290 Q748 310 750 326 Q752 338 756 344" stroke="#C0C0C0" stroke-width="24" fill="none" stroke-linecap="round"/>
+        <path d="M768 252 Q754 264 750 290 Q748 310 750 326 Q752 338 756 344" stroke="url(#lgShirtGrey)" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <!-- Forearm going up toward forehead -->
+        <path d="M756 344 Q750 322 748 300 Q746 278 750 258 Q754 242 762 232" stroke="url(#lgArm)" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <!-- Hand on forehead -->
+        <ellipse cx="763" cy="228" rx="15" ry="13" fill="url(#rgSkinDark)"/>
+        <!-- Right arm hanging down limp -->
+        <path d="M820 252 Q836 268 840 302 Q842 328 840 356" stroke="#C0C0C0" stroke-width="24" fill="none" stroke-linecap="round"/>
+        <path d="M820 252 Q836 268 840 302 Q842 328 840 356" stroke="url(#lgShirtGrey)" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <path d="M840 355 Q844 378 842 402 Q840 415 836 420" stroke="url(#lgArm)" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <ellipse cx="834" cy="424" rx="14" ry="13" fill="url(#rgSkinDark)"/>
+        <!-- Neck -->
+        <path d="M785 238 Q790 244 794 244 Q798 244 803 238 L801 220 Q794 215 787 220Z" fill="url(#rgSkinDark)"/>
+
+        <!-- HEAD (drooped forward, dejected) -->
+        <!-- Ears -->
+        <ellipse cx="746" cy="176" rx="13" ry="17" fill="url(#rgSkinDark)"/>
+        <ellipse cx="746" cy="176" rx="7" ry="11" fill="url(#rgEar)"/>
+        <ellipse cx="842" cy="176" rx="13" ry="17" fill="url(#rgSkinDark)"/>
+        <ellipse cx="842" cy="176" rx="7" ry="11" fill="url(#rgEar)"/>
+        <!-- Head -->
+        <ellipse cx="794" cy="168" rx="52" ry="58" fill="url(#rgSkinDark)" filter="url(#fHeadShadow)"/>
+        <ellipse cx="780" cy="150" rx="19" ry="15" fill="rgba(255,255,255,.13)"/>
+        <ellipse cx="794" cy="216" rx="28" ry="9" fill="#A87848" opacity=".18"/>
+        <!-- Hair (flat, unkempt) -->
+        <path d="M745 162 Q748 113 794 105 Q840 113 843 162 Q836 132 794 127 Q752 132 745 162Z" fill="url(#lgHair)"/>
+        <path d="M770 110 Q775 92 786 106 Q790 88 800 104 Q806 94 814 108 Q820 96 830 110 Q818 97 794 96 Q768 97 770 110Z" fill="#111"/>
+        <path d="M764 128 Q762 110 772 118" fill="#111"/>
+        <path d="M774 112 Q790 105 810 109" stroke="rgba(255,255,255,.11)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- Eyebrows (deeply worried V) -->
+        <path d="M758 144 Q768 135 782 141" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M806 141 Q820 135 830 144" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- Inner brow furrow -->
+        <path d="M788 136 Q794 130 800 136" stroke="#3A2010" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M790 130 Q794 126 798 130" stroke="#3A2010" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Eyes (heavy drooped lids, looking down) -->
+        <ellipse cx="771" cy="163" rx="13" ry="14" fill="white"/>
+        <ellipse cx="817" cy="163" rx="13" ry="14" fill="white"/>
+        <!-- Heavy eyelids drooping -->
+        <path d="M759 158 Q771 149 783 158 Q771 156 771 156Z" fill="#C0A080" opacity=".6"/>
+        <path d="M805 158 Q817 149 829 158 Q817 156 817 156Z" fill="#C0A080" opacity=".6"/>
+        <!-- Iris -->
+        <circle cx="771" cy="164" r="8.5" fill="url(#rgIris)"/>
+        <circle cx="817" cy="164" r="8.5" fill="url(#rgIris)"/>
+        <!-- Pupils looking down -->
+        <circle cx="771" cy="167" r="5" fill="#0D0500"/>
+        <circle cx="817" cy="167" r="5" fill="#0D0500"/>
+        <!-- Highlights (tiny, sad) -->
+        <circle cx="768" cy="160" r="2.5" fill="white" opacity=".75"/>
+        <circle cx="814" cy="160" r="2.5" fill="white" opacity=".75"/>
+        <!-- Eyelid lines -->
+        <path d="M759 158 Q771 149 783 158" stroke="#3A2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M805 158 Q817 149 829 158" stroke="#3A2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Lower lids puffy from crying -->
+        <path d="M761 170 Q771 175 781 170" stroke="#CC8855" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M807 170 Q817 175 827 170" stroke="#CC8855" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Nose -->
+        <ellipse cx="794" cy="182" rx="10" ry="8" fill="url(#rgNose)"/>
+        <ellipse cx="791" cy="179" rx="4" ry="3" fill="rgba(255,255,255,.2)"/>
+        <ellipse cx="788" cy="187" rx="2.5" ry="1.8" fill="#B07040" opacity=".4"/>
+        <ellipse cx="800" cy="187" rx="2.5" ry="1.8" fill="#B07040" opacity=".4"/>
+        <!-- Nose reddened (been crying) -->
+        <ellipse cx="794" cy="183" rx="6" ry="4" fill="#DD5555" opacity=".22"/>
+        <!-- FROWN -->
+        <path d="M776 204 Q794 193 812 204" stroke="#7A3820" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M776 204 Q794 193 812 204 Q806 199 794 197 Q782 199 776 204Z" fill="#AA4040" opacity=".4"/>
+        <!-- Trembling lower lip -->
+        <path d="M780 204 Q794 200 808 204" stroke="#994433" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".5"/>
+        <!-- Sad cheeks bluish -->
+        <ellipse cx="752" cy="196" rx="13" ry="9" fill="#8888CC" opacity=".2"/>
+        <ellipse cx="836" cy="196" rx="13" ry="9" fill="#8888CC" opacity=".2"/>
+        <!-- TEARS (multiple, streaming) -->
+        <path d="M836 178 Q840 192 836 200 Q832 192 836 178Z" fill="#88AABB" opacity=".9"/>
+        <ellipse cx="836" cy="199" rx="3.5" ry="3" fill="#AAC8DD" opacity=".8"/>
+        <path d="M840 188 Q843 198 840 204 Q837 198 840 188Z" fill="#88AABB" opacity=".65"/>
+        <path d="M752 180 Q748 193 752 200 Q756 193 752 180Z" fill="#88AABB" opacity=".8"/>
+        <ellipse cx="752" cy="199" rx="3" ry="2.5" fill="#AAC8DD" opacity=".7"/>
+        <!-- Sweat/stress drop -->
+        <path d="M844 146 Q848 156 844 162 Q840 156 844 146Z" fill="#AAD0E8" opacity=".7"/>
+        <!-- Zzz -->
+        <text x="850" y="126" font-size="16" fill="#B0B0B0" opacity=".6">z</text>
+        <text x="866" y="110" font-size="11" fill="#B0B0B0" opacity=".42">z</text>
+        <text x="877" y="99" font-size="8" fill="#B0B0B0" opacity=".28">z</text>
+      </svg></div></div>
+  </div>
+</section>
+
+<!-- ══════════ STATS + LEADERBOARD ══════════ -->
+<section class="section stats-section" id="stats">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <h2 class="section-title" style="color:var(--white)">جای تو توی این <span style="color:var(--yellow)">رقابت</span> خالیه</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="leaderboard-card reveal-left">
+        <div class="lb-header">
+          <div class="lb-title">🏅 جدول فعالیت فروشندگان</div>
+          <div class="live-badge"><div class="live-dot"></div> زنده</div>
+        </div>
+        <div id="leaderboard-rows" class="lb-feed"></div>
+      </div>
+
+      <div class="stat-cards">
+        <div class="stat-card reveal">
+          <div class="stat-label">نمایشی که فروشندگان بدست آوردن</div>
+          <div class="stat-value counter-dark" data-target="1482">۰</div>
+          <div class="stat-unit">در این دسته‌بندی</div>
+        </div>
+        <div class="stat-card reveal" style="transition-delay:.1s">
+          <div class="stat-label">فروشندگانی که امروز شروع کردن</div>
+          <div class="stat-value counter-dark" data-target="3940">۰</div>
+          <div class="stat-unit">تا الان</div>
+        </div>
+        <div class="stat-card reveal" style="transition-delay:.2s">
+          <div class="stat-label">کمپین‌هایی که تا الان ساخته شده</div>
+          <div class="stat-value counter-dark" data-target="856">۰</div>
+          <div class="stat-unit">از اول کمپین تا الان</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ REWARD TIERS ══════════ -->
+<section class="section rewards-section" id="rewards">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">جوایز ارزشمند</div>
+      <h2 class="section-title">پله به پله <span class="accent">اعتبار هدیه</span> دریافت کن</h2>
+      <div class="divider"></div>
+      <p class="section-sub">مجموع هزینه تبلیغات شما از ابتدا تا انتهای کمپین تابستانه، سطح جایزه شما را مشخص می‌کند. هر چقدر در این بازه بیشتر هزینه کنید، درصد هدیه شما در جدول زیر بالاتر می‌رود.</p>
+    </div>
+
+    <div class="tiers-track">
+      <div class="tier tier-1 reveal" style="transition-delay:.0s">
+        <div class="tier-medal">🥉</div>
+        <div class="tier-info">
+          <div class="tier-label">سطح ۱</div>
+          <div class="tier-range">۱ تا ۵ میلیون</div>
+          <div class="tier-reward">۵٪ هدیه</div>
+        </div>
+      </div>
+      <div class="tier tier-2 reveal" style="transition-delay:.1s">
+        <div class="tier-medal">🥈</div>
+        <div class="tier-info">
+          <div class="tier-label">سطح ۲</div>
+          <div class="tier-range">۵ تا ۱۰ میلیون</div>
+          <div class="tier-reward">۱۰٪ هدیه</div>
+        </div>
+      </div>
+      <div class="tier tier-3 reveal" style="transition-delay:.2s">
+        <div class="tier-medal">🥇</div>
+        <div class="tier-info">
+          <div class="tier-label">سطح ۳</div>
+          <div class="tier-range">۱۰ تا ۲۰ میلیون</div>
+          <div class="tier-reward">۱۵٪ هدیه</div>
+        </div>
+      </div>
+      <div class="tier tier-2 reveal" style="transition-delay:.25s">
+        <div class="tier-medal">🏅</div>
+        <div class="tier-info">
+          <div class="tier-label">سطح ۴</div>
+          <div class="tier-range">۲۰ تا ۵۰ میلیون</div>
+          <div class="tier-reward">۲۰٪ هدیه</div>
+        </div>
+      </div>
+      <div class="tier tier-4 reveal" style="transition-delay:.3s">
+        <div class="tier-badge">ویژه</div>
+        <div class="tier-medal">🏆</div>
+        <div class="tier-info">
+          <div class="tier-label">سطح قهرمانی</div>
+          <div class="tier-range">بیش از ۵۰ میلیون</div>
+          <div class="tier-reward">۳۰٪ هدیه</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-top:8px;" class="reveal"><div style="display:inline-flex;align-items:center;gap:10px;padding:10px 20px;background:rgba(255,179,64,.12);border:1.5px solid rgba(255,179,64,.4);border-radius:12px;font-size:13px;font-weight:700;color:#7a5200;">
+      <span style="font-size:16px;">⚠️</span>
+      توجه: این هدیه پس از اتمام کمپین تخصیص داده می‌شود و مهلت استفاده از آن ۱۵ روز است.
+    </div></div>
+
+  </div>
+</section>
+
+<!-- ══════════ SERVICES ══════════ -->
+<section class="section steps-section" id="steps">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">شروع کمپین</div>
+      <h2 class="section-title">سرویس تبلیغاتی خودت رو <span class="accent">انتخاب کن</span></h2>
+      <div class="divider"></div>
+      <p class="section-sub">با یه کلیک مستقیم برو برای ساخت کمپین</p>
+    </div>
+
+    <div class="services-grid">
+      <!-- جستجومحور -->
+      <a href="https://dgka.me/AdsSearch" target="_blank" rel="noopener" class="service-card service-card-search reveal">
+        <div class="service-card-header">
+          <div class="service-icon-wrap">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="10" stroke="white" stroke-width="3" fill="none"/>
+              <line x1="23" y1="23" x2="34" y2="34" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="service-label">جستجومحور</div>
+            <div class="service-name">نمایش در ابتدای نتایج جستجو</div>
+            <span class="service-tag">بر اساس تعداد کلیک</span>
+          </div>
+        </div>
+        <p class="service-desc">در میان صدها کالای مشابه، فرصت بیشتری برای دیده‌شدن و فروش پیدا کنید.</p>
+        <ul class="service-bullets">
+          <li>نمایش در بای‌باکس در مدت اجرای تبلیغ</li>
+          <li>نمایش به مشتریان واقعی در لحظه تصمیم خرید</li>
+        </ul>
+        <div class="service-cta">شروع تبلیغات ←</div>
+      </a>
+
+      <!-- شگفت‌انگیز سفارشی -->
+      <a href="https://dgka.me/Adsdeal" target="_blank" rel="noopener" class="service-card service-card-amazing reveal" style="transition-delay:.1s">
+        <div class="service-card-header">
+          <div class="service-icon-wrap">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="4,28 12,18 19,23 27,11 34,11" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <polyline points="28,11 34,11 34,17" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <div>
+            <div class="service-label">شگفت‌انگیز سفارشی</div>
+            <div class="service-name">نمایش در پربازدیدترین صفحه دیجی‌کالا</div>
+            <span class="service-tag">به ازای بازه زمانی</span>
+          </div>
+        </div>
+        <p class="service-desc">با حضور در بخش کالاهای شگفت‌انگیز، محصول شما در معرض دید میلیون‌ها بازدیدکننده قرار می‌گیرد و فروش‌تان افزایش پیدا می‌کند.</p>
+        <ul class="service-bullets">
+          <li>نمایش در بای‌باکس در مدت اجرای تبلیغ</li>
+          <li>پذیرش ساده‌تر نسبت به پروموشن شگفت‌انگیز</li>
+        </ul>
+        <div class="service-cta">شروع تبلیغات ←</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">سوالات متداول</div>
+      <h2 class="section-title">پاسخ به <span class="accent">سوال‌های شما</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span class="faq-icon">?</span>
+          چطور می‌توانم در کمپین جام فروش تابستان شرکت کنم؟
+        </div>
+        <div class="faq-a">
+          کافی است کیف پول تبلیغاتی خود را شارژ کرده و اولین کمپین خود را فعال کنید تا نام شما در لیست شرکت‌کنندگان قرار بگیرد.
+        </div>
+      </div>
+
+      <div class="faq-item reveal" style="transition-delay:.08s">
+        <div class="faq-q">
+          <span class="faq-icon">?</span>
+          جوایز و اعتبارهای هدیه چه زمانی به حساب من واریز می‌شود؟
+        </div>
+        <div class="faq-a">
+          تمامی اعتبارهای هدیه بر اساس سطح بودجه مصرفی شما، پس از پایان زمان کمپین محاسبه و به صورت خودکار به کیف پول شما واریز خواهد شد.
+        </div>
+      </div>
+
+      <div class="faq-item reveal" style="transition-delay:.16s">
+        <div class="faq-q">
+          <span class="faq-icon">?</span>
+          آیا شرکت در این کمپین برای تمامی فروشندگان امکان‌پذیر است؟
+        </div>
+        <div class="faq-a">
+          بله، تمامی فروشندگان فعال در دیجی‌کالا می‌توانند با استفاده از سرویس‌های تبلیغاتی در این رقابت شرکت کنند.
+        </div>
+      </div>
+
+      <div class="faq-item reveal" style="transition-delay:.24s">
+        <div class="faq-q">
+          <span class="faq-icon">?</span>
+          مهلت استفاده از اعتبار هدیه دریافت‌شده چقدر است؟
+        </div>
+        <div class="faq-a">
+          اعتبار هدیه تخصیص داده‌شده تا ۱۵ روز پس از واریز معتبر است و می‌توانید در کمپین‌های بعدی از آن استفاده کنید.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DARK CTA ══════════ -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <span class="cta-emoji">🚀</span>
+    <h2 class="cta-title">
+      <span style="color:rgba(255,255,255,.7); font-size:.82em; font-weight:700; display:block; margin-bottom:10px; letter-spacing:.5px;">سوت آغاز مسابقه زده شد،</span>
+      <span style="background:linear-gradient(90deg,#FF6B35,#FFB340,#C93667); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">از بازار داغ تابستون جا نمونی!</span>
+    </h2>
+    <div class="cta-btns" style="margin-top:40px;">
+      <a href="https://dgka.me/summerads" target="_blank" rel="noopener" class="btn-cta-primary">بزن بریم 🚀</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">🏆 Summer Sales Championship</div>
+      <p class="footer-desc">بزرگ‌ترین رویداد تبلیغاتی تابستان در دیجیکالا. فروشندگان برتر جوایز ارزشمند دریافت می‌کنند.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">قوانین</div>
+      <a href="#">قوانین مسابقه</a>
+      <a href="#">سیاست حریم خصوصی</a>
+      <a href="#">شرایط استفاده</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">پشتیبانی</div>
+      <a href="#">تماس با پشتیبانی</a>
+      <a href="#">سوالات متداول</a>
+      <a href="#">گزارش مشکل</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">دسترسی سریع</div>
+      <a href="#features">فرصت‌ها</a>
+      <a href="#stats">جدول امتیازات</a>
+      <a href="#rewards">جوایز</a>
+      <a href="#steps">راهنما</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Summer Sales Championship. All rights reserved for Marketplace Excellence.</span>
+    <span>ساخته شده با ❤️ برای فروشندگان دیجیکالا</span>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ══════════ JAVASCRIPT ══════════ -->
+<script>
+  /* ─── Loader ─────────────────────────── */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 900);
+  });
+
+  /* ─── Navbar scroll ─────────────────── */
+  const navbar  = document.getElementById('navbar');
+  const scrollTopBtn = document.getElementById('scrollTop');
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 60);
+    scrollTopBtn.classList.toggle('show', y > 400);
+  }, { passive: true });
+
+
+  /* ─── Scroll Reveal ─────────────────── */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer  = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  /* ─── Counter Animation ─────────────── */
+  function toFarsi(n) {
+    return n.toLocaleString('fa-IR');
+  }
+
+  function animateCounter(el, target) {
+    let start = 0;
+    const duration = 1800;
+    const startTime = performance.now();
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = Math.floor(eased * target);
+      el.textContent = toFarsi(val);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Hero counters (auto-start)
+  setTimeout(() => {
+    document.querySelectorAll('.counter').forEach(el => {
+      animateCounter(el, parseInt(el.dataset.target));
+    });
+  }, 1000);
+
+  // Dark section counters (on scroll)
+  const darkCounters = document.querySelectorAll('.counter-dark');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target, parseInt(e.target.dataset.target));
+        counterObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  darkCounters.forEach(el => counterObserver.observe(el));
+
+  /* ─── Progress Bar Animation ────────── */
+  const progressEl = document.getElementById('progress-bar');
+  if (progressEl) {
+    const progObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setTimeout(() => { progressEl.style.width = '68%'; }, 300);
+        progObserver.disconnect();
+      }
+    }, { threshold: 0.5 });
+    progObserver.observe(progressEl);
+  }
+
+  /* ─── Live Leaderboard Simulation ───── */
+  const scores = [12840, 11200, 9650, 8410, 7880, 6920];
+  const names  = [
+    'فروشگاه تجهیزات ورزشی رضا','دیجی‌استور مرکزی',
+    'فروشگاه لوازم خانگی ستاره','آنلاین‌شاپ تهران',
+    'مرکز فروش پارسیان','فروشگاه البرز'
+  ];
+  const medals = ['🥇','🥈','🥉','۴','۵','۶'];
+
+  /* ─── Live activity feed ─────────────── */
+  (function() {
+    const stores = [
+      'فروشگاه تجهیزات ورزشی رضا','دیجی‌استور مرکزی','فروشگاه لوازم خانگی ستاره',
+      'آنلاین‌شاپ تهران','مرکز فروش پارسیان','فروشگاه البرز','شاپ مد و استایل آنا',
+      'فروشگاه کالای آفتاب','دیجی‌شاپ شمال','مرکز ورزشی پرواز','فروشگاه سبز',
+      'آنلاین‌شاپ خزر','فروشگاه گلستان','دیجی‌مارت امین','فروشگاه نور',
+      'سوپرمارکت دیجیتال','کالاسیتی','فروشگاه ایران‌مال','دیجی‌پلاس شرق',
+      'مرکز خرید نگین','فروشگاه اطلس','شاپ تهران‌پارس','دیجی‌کالکشن',
+      'آنلاین‌شاپ پارس','فروشگاه رادین','مرکز فروش آریا','شاپ‌لند ایران',
+      'فروشگاه ستاره شمال','دیجی‌اکسپرس','مرکز خرید هدیه','فروشگاه کریم'
+    ];
+    const cats = [
+      'کالاهای سرمایشی','استایل و پوشاک تابستانی','استخر و آب‌تنی',
+      'گردش و سفر','تجهیزات آتش و کمپینگ','لوازم مصرفی خودرو',
+      'دورهمی و اوقات فراغت','ساز، موسیقی و سرگرمی','زیبایی و لوازم شخصی',
+      'ورزش تابستانی','ماهیگیری','ضدآفتاب و مراقبت پوست',
+      'لوازم خانگی هوشمند','کتاب و قرطاسیه','اسباب‌بازی و کودک',
+      'لپ‌تاپ و کامپیوتر','موبایل و اکسسوری','لوازم آشپزخانه',
+      'مبلمان و دکوراسیون','ابزار و یراق‌آلات','لوازم ورزشی',
+      'پوشاک مردانه','پوشاک زنانه','کفش و کیف'
+    ];
+    const services = ['جستجومحور','شگفت‌انگیز سفارشی','جستجومحور','جستجومحور','شگفت‌انگیز سفارشی'];
+    const times = ['لحظاتی پیش','۱ دقیقه پیش','۲ دقیقه پیش','همین الان','۳ دقیقه پیش'];
+
+    const MAX_ROWS = 5;
+    const POOL_SIZE = 300;
+    const feed = document.getElementById('leaderboard-rows');
+
+    function randN(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+    // ── Build pool of 300 unique rows ──
+    function buildPool() {
+      const pool = [];
+      // Fisher-Yates shuffle helper
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      const shuffledStores = shuffle(stores);
+      const shuffledCats   = shuffle(cats);
+      const shuffledSvc    = shuffle(services);
+      const shuffledTimes  = shuffle(times);
+
+      for (let i = 0; i < POOL_SIZE; i++) {
+        pool.push({
+          store: shuffledStores[i % shuffledStores.length],
+          cat:   shuffledCats[i % shuffledCats.length],
+          svc:   shuffledSvc[i % shuffledSvc.length],
+          n:     randN(1, 9),
+          t:     shuffledTimes[i % shuffledTimes.length]
+        });
+      }
+      // Shuffle entire pool so it's not cyclic
+      return shuffle(pool);
+    }
+
+    let pool = buildPool();
+    let poolIdx = 0;
+
+    function nextPoolItem() {
+      if (poolIdx >= pool.length) {
+        // Rebuild & reshuffle when exhausted
+        pool = buildPool();
+        poolIdx = 0;
+      }
+      return pool[poolIdx++];
+    }
+
+    function makeRowEl(item, animate) {
+      const div = document.createElement('div');
+      div.className = 'lb-row' + (animate ? ' lb-enter' : '');
+      div.innerHTML = `
+        <div class="lb-dot"></div>
+        <div class="lb-text">
+          <span class="lb-store">${item.store}</span>
+          برای ${toFarsi(item.n)} کالا در دسته‌بندی
+          <strong>${item.cat}</strong>
+          یک کمپین <span class="lb-service">${item.svc}</span> ساخت
+        </div>
+        <div class="lb-time">${item.t}</div>`;
+      return div;
+    }
+
+    function addRow() {
+      const rows = feed.querySelectorAll('.lb-row');
+      if (rows.length >= MAX_ROWS) {
+        const last = rows[rows.length - 1];
+        last.classList.add('lb-exit');
+        setTimeout(() => last.remove(), 700);
+      }
+      feed.prepend(makeRowEl(nextPoolItem(), true));
+    }
+
+    // Seed initial 5 rows (no animation)
+    for (let i = 0; i < MAX_ROWS; i++) {
+      feed.appendChild(makeRowEl(nextPoolItem(), false));
+    }
+
+    setInterval(addRow, 3200);
+  })();
+
+
+  /* ─── Ticker vertical slide ─────────── */
+  (function() {
+    const slides = document.querySelectorAll('#tickerSlider .ticker-slide');
+    let current = 0;
+    setInterval(() => {
+      const next = (current + 1) % slides.length;
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      slides[next].classList.add('active');
+      const exiting = slides[current];
+      setTimeout(() => { exiting.classList.remove('exit'); }, 600);
+      current = next;
+    }, 5000);
+  })();
+
+  /* ─── Step card hover ───────────────── */
+  document.querySelectorAll('.step-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - .5;
+      const y = (e.clientY - rect.top)  / rect.height - .5;
+      card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+</script>
+
+</body>
+</html>
